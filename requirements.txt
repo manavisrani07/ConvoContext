@@ -1,3 +1,5 @@
+pandas
+numpy
 transformers
 PyPDF2
 python-docx
