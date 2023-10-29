@@ -1,6 +1,6 @@
-# ConvoConnect
+# ConvoContext
 
-ConvoConnect is a Python application that leverages the power of the Hugging Face Transformers library to provide you with instant answers to your questions based on context. It's a versatile tool that can work with various file types like PDFs, DOCX, PPTX, and plain text files.
+ConvoContext is a Python application that leverages the power of the Hugging Face Transformers library to provide you with instant answers to your questions based on context. It's a versatile tool that can work with various file types like PDFs, DOCX, PPTX, and plain text files.
 
 ## Table of Contents
 
@@ -22,14 +22,14 @@ These instructions will help you get started with ConvoConnect and set up the en
 
 ### Prerequisites
 
-To use ConvoConnect, you'll need to have the following installed:
+To use ConvoContext, you'll need to have the following installed:
 
 - Python 3
 - Dependencies listed in `requirements.txt`
 
 ### Installation
 
-1. Clone the ConvoConnect repository and change the directory:
+1. Clone the ConvoContext repository and change the directory:
 
    ```bash
    git clone https://github.com/manavtech07/ConvoConnect.git
@@ -44,9 +44,9 @@ To use ConvoConnect, you'll need to have the following installed:
 
 ## How It Works
 
-ConvoConnect combines the power of language models and file parsing to answer questions based on provided context. It currently supports PDF, DOCX, PPTX, and plain text file formats.
+ConvoContext combines the power of language models and file parsing to answer questions based on provided context. It currently supports PDF, DOCX, PPTX, and plain text file formats.
 
-**ConvoConnect is still a work in progress**, and further developments are planned to expand its capabilities and enhance its performance. This project represents a minor step in the journey of mine and aims to provide a foundation for future improvements.
+**ConvoContext is still a work in progress**, and further developments are planned to expand its capabilities and enhance its performance. This project represents a minor step in the journey of mine and aims to provide a foundation for future improvements.
 
 ## Usage
 
@@ -62,7 +62,7 @@ ConvoConnect combines the power of language models and file parsing to answer qu
 
    ```
 2. When prompted, enter your question.
-3. ConvoConnect will provide you with answers based on the provided context.
+3. ConvoContext will provide you with answers based on the provided context.
 4. If not this way, you can type the content
    ```bash
    combined_content= input("Content: ")
@@ -83,11 +83,11 @@ ConvoConnect combines the power of language models and file parsing to answer qu
 
 ## Reference
 
-For reference, you can refer to this Colab notebook: [ConvoConnect](https://colab.research.google.com/drive/1RXes7JYkGgsmLbS3mj2o61nOzdI6E29C?usp=sharing)
+For reference, you can refer to this Colab notebook: [ConvoContext](https://colab.research.google.com/drive/1RXes7JYkGgsmLbS3mj2o61nOzdI6E29C?usp=sharing)
 
 ## Contributing
 
-Contributions to make ConvoConnect even better are welcomed. If you'd like to contribute, please open an issue or a pull request on our GitHub repository:)
+Contributions to make ConvoContext even better are welcomed. If you'd like to contribute, please open an issue or a pull request on our GitHub repository:)
 
 
 
