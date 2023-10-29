@@ -1,10 +1,11 @@
 from transformers import BertTokenizer, BertForQuestionAnswering, pipeline
 
 class QAModel:
-    def __init__(self, model, tokenizer):
+    def __init__(self, model, tokenizer, tqa):
         self.tokenizer = tokenizer
         self.model = model
         self.qa_pipeline = pipeline('question-answering', model=self.model, tokenizer=self.tokenizer)
+        self.tqa = tqa
 
     def answer_question(self, question, context):
         answer = self.qa_pipeline({
@@ -12,6 +13,13 @@ class QAModel:
             'context': context
         })
         return answer
+
+    def answer_csv(self, question, context):
+        if self.tqa is not None:
+            answer = self.tqa(table=context, query=question)
+            return answer
+        else:
+            return "tqa pipeline not provided."
 
 class ContentExtractor:
     @staticmethod
@@ -25,7 +33,7 @@ class ContentExtractor:
             end_index += 1
 
         # Extract the identified content
-        extracted_content = content[start_index :end_index]  # +1 to exclude the period
+        extracted_content = content[start_index:end_index]  # +1 to exclude the period
 
         # Split the content into multiple lines
         max_line_length = 80  # Adjust the line length as needed
