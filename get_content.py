@@ -5,6 +5,8 @@ from PyPDF2 import PdfReader
 from docx import Document
 from pptx import Presentation
 import os
+import pandas as pd
+import string
 
 class FileContentReader:
     def __init__(self):
@@ -43,6 +45,7 @@ class FileContentReader:
 
     def read_content(self):
         combined_content = ""
+        file_extension=""
         for file_path in self.file_paths:
             file_extension = os.path.splitext(file_path)[1].lower()
             if file_extension == ".pdf":
@@ -53,5 +56,19 @@ class FileContentReader:
                 combined_content += self.read_pptx(file_path)
             elif file_extension == ".txt":
                 combined_content += self.read_txt(file_path)
-        return combined_content
+            elif file_extension == ".csv":
+                df = pd.read_csv(file_path)
+                return df.astype(str), "google/tapas-base-finetuned-wtq"
+
+        return combined_content, "deepset/bert-base-cased-squad2"
+
+    def get_model_name(self, file_extension):
+        if file_extension == ".csv":
+            return "google/tapas-base-finetuned-wtq"
+        else:
+            return "deepset/bert-base-cased-squad2"
+
+    def process_files(self):
+        combined_content, modelname = self.read_content()
+        return combined_content, modelname
 
