@@ -58,17 +58,11 @@ class FileContentReader:
                 combined_content += self.read_txt(file_path)
             elif file_extension == ".csv":
                 df = pd.read_csv(file_path)
-                return df.astype(str), "google/tapas-base-finetuned-wtq"
+                return df.astype(str), file_extension
 
-        return combined_content, "deepset/bert-base-cased-squad2"
-
-    def get_model_name(self, file_extension):
-        if file_extension == ".csv":
-            return "google/tapas-base-finetuned-wtq"
-        else:
-            return "deepset/bert-base-cased-squad2"
+        return combined_content, file_extension
 
     def process_files(self):
-        combined_content, modelname = self.read_content()
-        return combined_content, modelname
+        combined_content, file_extension = self.read_content()
+        return combined_content, file_extension
 
