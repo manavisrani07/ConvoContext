@@ -52,42 +52,64 @@ In the case of CSV format, ConvoContext can also provide small insights regardin
 
 ## Usage
 
-1. To upload the content
+1. To upload the necessary libraries
+   ```bash
+   import requests
+   from transformers import BertTokenizer, BertForQuestionAnswering
+   from PyPDF2 import PdfReader
+   from docx import Document
+   from pptx import Presentation
+   import os
+   from transformers import pipeline
+   ```
+   
+2. To upload the content
    ```bash
    from get_content import FileContentReader
    file_reader = FileContentReader()
+   # Set the file paths for processing
    from google.colab import files
    uploaded_files = files.upload()
    file_paths = list(uploaded_files.keys())
-   file_reader.set_file_paths(file_paths)
-   combined_content = file_reader.read_content()
 
+   file_reader.set_file_paths(file_paths)
+   # Get the combined content and model name
+   result = file_reader.process_files()
+   combined_content, file_extension = result[0], result[1]
+   print(combined_content)
    ```
-2. When prompted, enter your question.
-3. ConvoContext will provide you with answers based on the provided context.
-4. If not this way, you can type the content
+3. When prompted, enter your question.
+4. ConvoContext will provide you with answers based on the provided context.
+5. If not this way, you can type the content
    ```bash
    combined_content= input("Content: ")
+   file_extension=".txt"
    ```
-
-5. Now main.py
+6. Now load models, tokenizers and create pipeline
    ```bash
-   from main import QAModel, ContentExtractor
+   from modelling import ModelSelector
+
+   model_selector = ModelSelector(file_extension)
+   tqa_model = model_selector.get_tqa_model()
+   model_name = model_selector.get_model_name()
+   tokenizer = model_selector.get_tokenizer()
+   model = model_selector.get_model()
+   ```
+7. Now main.py
+   ```bash
+   from main import QAModel
 
    question = input("Question: \n")
+   qa_model = QAModel(tqa, file_extension, question, combined_content)
+   answer, extracted_reference = qa_model.run()
 
-   if model_name == "google/tapas-base-finetuned-wtq":
-       qa_model = QAModel(model, tokenizer, tqa)
-       answer = qa_model.answer_csv(question, combined_content)
-       print("\n------------------------------------------------------------------------------------------------\n\nAnswer: ", answer)
+   if answer is not None:
+     print(f'\n------------------------------------------------------------------------------------------------\n\nAnswer: 
+   {answer["answer"]}\n\n------------------------------------------------------------------------------------------------ \n\nContext:\n{extracted_reference}')
+
    else:
-       qa_model = QAModel(model, tokenizer, tqa)
-       answer = qa_model.answer_question(question, combined_content)
+   print(f'\n------------------------------------------------------------------------------------------------\n\nAnswer: \n{extracted_reference}')
 
-       extracted_reference = ContentExtractor.extract_context(combined_content, answer['start'], answer['end'])
-
-       print(f'\n------------------------------------------------------------------------------------------------\n\nAnswer: {answer["answer"]}\n\n------------------------------------------------------------------------------------------------\n\nContext:\n')
-       print(extracted_reference)
    ```
 
 ## Reference
